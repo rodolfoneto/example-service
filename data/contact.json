@@ -1,0 +1,38 @@
+{
+    "result": [{
+         "firstname": "Joe",
+         "lastname": "Smith",
+         "title": "Mr.",
+         "company": "Dev Inc.",
+        "jobtitle": "Developer",
+        "primarycontactnumber": "+359777123456",
+        "othercontactnumber": [
+            "+359777456789",
+            "+359777112233"
+        ],
+        "primaryemailaddress": "joe.smith@xyz.com",
+        "emailaddresses": [
+            "j.smith@xyz.com"
+        ],
+        "groups": [
+            "Dev",
+            "Family"
+        ]
+    },
+    {
+        "firstname": "Jonh",
+        "lastname": "Douglas",
+        "title": "Mr.",
+        "company": "Dev Inc.",
+       "jobtitle": "Developer",
+       "primarycontactnumber": "+359777223344",
+       "othercontactnumber": [],
+       "primaryemailaddress": "jonh.douglas@xyz.com",
+       "emailaddresses": [
+           "j.douglas@xyz.com"
+       ],
+       "groups": [
+           "Dev"
+       ]
+   }]
+}
