@@ -11,7 +11,8 @@
     "express": "4.7.2",
     "jade": "*",
     "leveldown": "^5.0.2",
-    "levelup": "^4.0.1"
+    "levelup": "^4.0.1",
+    "encoding-down": "^2.2.1"
   },
   "author": "rodolfo neto",
   "license": "MIT"
