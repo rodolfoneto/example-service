@@ -2,7 +2,7 @@ var express = require('express'),
     http = require('http'),
     mongoose = require('mongoose'),
     bodyParser = require('body-parser'),
-    _v1 = require('./modules/contactdataservice_1');
+    dataservice = require('./modules/contactdataservice');
 var app = express();
 
 app.set('port', process.env.port || 3000);
@@ -25,31 +25,26 @@ var contactSchema = new mongoose.Schema({
 
 var Contact = mongoose.model('Contact', contactSchema);
 
-app.get('/v1/contact/:number', (request, response) => {
+app.get('/contact/:number', (request, response) => {
     console.log(`${request.url}: querying for ${request.params.number}`);
-    _v1.findByNumber(Contact, request.params.number);
+    dataservice.findByNumber(Contact, request.params.number);
 });
 
-app.post('/v1/contact', (request, response) => {
-    _v1.update(Contact, request.params.number);
+app.post('/contact', (request, response) => {
+    dataservice.update(Contact, request.params.number);
 });
 
-app.put('/v1/contact', (request, response) => {
-    _v1.create(Contact, request.body, response);
+app.put('/contact', (request, response) => {
+    dataservice.create(Contact, request.body, response);
 });
 
-app.del('/v1/contacts/:primarycontactnumber', (request, response) => {
-    _v1.remove(Contact, request.params.primarycontactnumber, response);
-});
-
-app.get('/v1/contact', (request, response) => {
-    console.log(`Listing all contacts with ${request.params.key}=${request.params.value}`);
-    _v1.list(Contact, response);
+app.del('/contacts/:primarycontactnumber', (request, response) => {
+    dataservice.remove(Contact, request.params.primarycontactnumber, response);
 });
 
 app.get('/contact', (request, response) => {
-    response.writeHead(301, {'Location': '/v1/contacts'});
-    response.end('Version 1 is moved to /contacts/: ');
+    console.log(`Listing all contacts with ${request.params.key}=${request.params.value}`);
+    dataservice.list(Contact, response);
 });
 
 console.log(`Runing ta port ${app.get('port')}`);
