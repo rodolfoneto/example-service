@@ -149,22 +149,6 @@ exports.create = function (model, requestBody, response) {
     });
 }
 
-
-function toContact(body, Contact) {
-    return new Contact({
-        firstname : body.firstname,
-        lastname : body.lastname,
-        title : body.title,
-        company : body.company,
-        jobtitle : body.jobtitle,
-        primarycontactnumber : body.primarycontactnumber,
-        othercontactnumber : body.othercontactnumber,
-        primaryemailaddress : body.primaryemailaddress,
-        emailaddresses : body.emailaddresses,
-        groups : body.groups
-    });
-}
-
 exports.findByNumber = function (model, _primarycontactnumber, response) {
     model.findOne({primarycontactnumber: _primarycontactnumber}, (error, result) => {
         if(error) {
@@ -189,6 +173,31 @@ exports.findByNumber = function (model, _primarycontactnumber, response) {
     });
 }
 
+exports.query_by_arg = function(model, key, value, response) {
+    var filterArg = `{"${key}":"${value}"}`;
+    var filter = JSON.parse(filterArg);
+    model.find(filter, (error, result) {
+        if(error) {
+            console.log(error);
+            response.writeHead(500, {'Content-Type' : 'text/plain'});
+            response.end('Internal server error');
+            return;
+        } else {
+            if(!result) {
+                if(response != null) {
+                    response.writeHead(404, {'Content-Type':'text/plain'});
+                    response.end('Not Found');
+                }
+                return;
+            }
+            if(response != null) {
+                response.setHeader('Content-Type', 'application/json');
+                response.end(result);
+            }
+        }
+    });
+}
+
 exports.list = function (model, response) {
     model.find({}, (error, result) => {
         if(error) {
@@ -200,5 +209,20 @@ exports.list = function (model, response) {
             response.end(JSON.stringify(result));
         }
         return JSON.stringify(result);
+    });
+}
+
+function toContact(body, Contact) {
+    return new Contact({
+        firstname : body.firstname,
+        lastname : body.lastname,
+        title : body.title,
+        company : body.company,
+        jobtitle : body.jobtitle,
+        primarycontactnumber : body.primarycontactnumber,
+        othercontactnumber : body.othercontactnumber,
+        primaryemailaddress : body.primaryemailaddress,
+        emailaddresses : body.emailaddresses,
+        groups : body.groups
     });
 }
