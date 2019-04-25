@@ -3,8 +3,8 @@ var express = require('express'),
     path = require('path'),
     // errorHandler = require('errorhandler'),
     levelup = require('levelup'),
-    leveldown = require('leveldown');
-    // import * as encoding from 'encoding-down';
+    leveldown = require('leveldown'),
+    import * as encoding from 'encoding-down';
 var app = express();
 // var url = require('url');
 
@@ -15,10 +15,10 @@ app.set('view engine', 'jade');
 // if(development == app.get('env')) {
 //     app.use(errorHandler());
 // }
-// const encoded = encoding(leveldown('/tmp/test'), {
-//     valueEncoding: 'json',
-// });
-var db = levelup(leveldown('/tmp/test'));
+const encoded = encoding(leveldown('/tmp/test'), {
+    valueEncoding: 'json',
+});
+var db = levelup(encoded);
 db.put('+359777123456', {
     "firstname": "Joe",
     "lastname": "Smith",
@@ -40,7 +40,7 @@ app.get('/contacts/:number', (request, response) => {
             response.end('Not Found');
             return;
         }
-        console.dir(data);
+        console.dir(new Buffer(data).toString());
         response.setHeader('content-type', 'application/json');
         response.send(new Buffer(data).toString());
     });

@@ -7,11 +7,12 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
-    "body-parser": "^1.18.3",
     "cors": "^2.8.5",
     "express": "4.7.2",
     "jade": "*",
-    "mongoose": "^5.5.3"
+    "leveldown": "^5.0.2",
+    "levelup": "^4.0.1",
+    "encoding-down": "^2.2.1"
   },
   "author": "rodolfo neto",
   "license": "MIT"
